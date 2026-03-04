@@ -7,12 +7,56 @@ const qrcode = require('qrcode-terminal');
 const app = express();
 const PORT = 3001;
 
+// CORS - Allow both localhost and production
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://your-production-domain.com' // Replace with your actual domain
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
+
 app.use(cookieParser());
 app.use(express.json());
+
+// Rate limiting middleware
+const requestCounts = new Map();
+const RATE_LIMIT = 5; // 5 requests
+const RATE_WINDOW = 60000; // per minute
+
+function rateLimiter(req, res, next) {
+  const ip = req.ip || req.connection.remoteAddress;
+  const now = Date.now();
+  
+  if (!requestCounts.has(ip)) {
+    requestCounts.set(ip, { count: 1, resetTime: now + RATE_WINDOW });
+    return next();
+  }
+  
+  const record = requestCounts.get(ip);
+  
+  if (now > record.resetTime) {
+    record.count = 1;
+    record.resetTime = now + RATE_WINDOW;
+    return next();
+  }
+  
+  if (record.count >= RATE_LIMIT) {
+    return res.status(429).json({ success: false, error: 'Too many requests. Please try again later.' });
+  }
+  
+  record.count++;
+  next();
+}
 
 // Initialize WhatsApp Client with local session saving
 // Puppeteer args to ensure it runs smoothly on various systems
@@ -46,7 +90,7 @@ client.on('auth_failure', msg => {
 client.initialize();
 
 // API Endpoint to send confirmation messages
-app.post('/api/send-confirmation', async (req, res) => {
+app.post('/api/send-confirmation', rateLimiter, async (req, res) => {
     if (!isClientReady) {
         console.error('Ping received, but WhatsApp is not logged in.');
         return res.status(503).json({ success: false, error: 'WhatsApp client is not ready. Please scan the QR code in the terminal.' });

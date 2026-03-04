@@ -444,10 +444,14 @@ const Home = () => {
                   </div>
 
                   <div className="mobile-upi-payment">
-                    <p className="payment-instruction">Tap below to pay ₹200</p>
-                    <a href="upi://pay?pa=9487588713@ybl&pn=PRADEEBAA&am=200&cu=INR&tn=WomensDay-Registration" className="upi-pay-btn">
-                      Pay via UPI App
+                    <p className="payment-instruction">Choose payment method:</p>
+                    <a href="upi://pay?pa=9487588713@ybl&pn=PRADEEBAA&am=200&cu=INR&tn=WomensDay" className="upi-pay-btn" style={{marginBottom: '10px'}}>
+                      Pay ₹200 (Auto-fill)
                     </a>
+                    <a href="upi://pay?pa=9487588713@ybl&pn=PRADEEBAA" className="upi-pay-btn" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}}>
+                      Pay Manually
+                    </a>
+                    <p className="payment-note" style={{fontSize: '0.8rem', color: '#ffd700', marginTop: '8px'}}>If first button fails, use second & enter ₹200</p>
                   </div>
                 </div>
 

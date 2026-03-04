@@ -1,10 +1,25 @@
 // Google Apps Script Code
 // Deploy this as a Web App with "Anyone" access
 
+// Simple request validation
+function validateRequest(params) {
+  const requiredFields = ['participantName', 'age', 'phoneNumber', 'address', 'group1', 'group2', 'group3'];
+  for (let field of requiredFields) {
+    if (!params[field]) {
+      throw new Error(`Missing required field: ${field}`);
+    }
+  }
+  return true;
+}
+
 function doPost(e) {
   try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     const params = e.parameter;
+    
+    // Validate request
+    validateRequest(params);
+    
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     
     // Get form data
     const participantName = params.participantName || '';
