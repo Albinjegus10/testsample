@@ -444,12 +444,12 @@ const Home = () => {
                   </div>
 
                   <div className="mobile-upi-payment">
-                    <p className="payment-instruction" style={{marginBottom: '15px', fontSize: '1rem', fontWeight: '600'}}>Pay ₹200 to this UPI ID:</p>
+                    <p className="payment-instruction" style={{marginBottom: '15px', fontSize: '1rem', fontWeight: '600'}}>Pay ₹200 to:</p>
                     <div style={{background: 'rgba(255,255,255,0.1)', padding: '15px', borderRadius: '10px', marginBottom: '15px'}}>
-                      <p style={{margin: '0', fontSize: '1.2rem', fontWeight: '700', color: '#ffd700'}}>9487588713@ybl</p>
-                      <p style={{margin: '5px 0 0 0', fontSize: '0.85rem', color: '#fff'}}>PRADEEBAA</p>
+                      <p style={{margin: '0', fontSize: '1.2rem', fontWeight: '700', color: '#ffd700'}}>albinjegus10@okicici</p>
+                      <p style={{margin: '5px 0 0 0', fontSize: '0.85rem', color: '#fff'}}>ALBIN JEGUS</p>
                     </div>
-                    <a href="upi://pay?pa=9487588713@ybl&pn=PRADEEBAA" className="upi-pay-btn">
+                    <a href="upi://pay?pa=albinjegus10@okicici" className="upi-pay-btn">
                       Open UPI App
                     </a>
                     <p className="payment-note" style={{fontSize: '0.85rem', color: '#ff6b6b', marginTop: '10px', fontWeight: '600'}}>⚠️ Manually enter ₹200 in your UPI app</p>
