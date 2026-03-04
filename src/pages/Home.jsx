@@ -449,7 +449,7 @@ const Home = () => {
                       <p style={{margin: '0', fontSize: '1.2rem', fontWeight: '700', color: '#ffd700'}}>albinjegus10@okicici</p>
                       <p style={{margin: '5px 0 0 0', fontSize: '0.85rem', color: '#fff'}}>ALBIN JEGUS</p>
                     </div>
-                    <a href="upi://pay?pa=albinjegus10@okicici" className="upi-pay-btn">
+                    <a href="intent://pay?pa=albinjegus10@okicici&pn=ALBIN%20JEGUS#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end" className="upi-pay-btn">
                       Open UPI App
                     </a>
                     <p className="payment-note" style={{fontSize: '0.85rem', color: '#ff6b6b', marginTop: '10px', fontWeight: '600'}}>⚠️ Manually enter ₹200 in your UPI app</p>
